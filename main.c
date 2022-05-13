@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/13 16:15:28 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/13 16:21:51 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_vars(char **argv, t_main *life_philo) // filo, time to die, time to eat, time to sleep, number of meals
 {
 	life_philo->eat = argv[]
+	printf("teste\n");
 }
 
 int main(int argc, char **argv)
