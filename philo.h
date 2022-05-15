@@ -6,13 +6,23 @@
 
 typedef struct s_main
 {
-	int	philo;
+	int	philo_n;
 	int	sleep_n;
-	int	think_n;
+	int	die_n;
 	int	eat_n;
 	int	meals_n;
 
-}			t_main;
+}t_main;
+
+typedef struct	s_philo
+{
+	int				philosopher;
+	int				quantity_meal;
+	int				time_to_eat;
+	t_main			main;
+	struct s_philo	*next;
+
+}t_philo;
 
 //error functions
 

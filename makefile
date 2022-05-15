@@ -1,11 +1,11 @@
 NAME = philo
 
-FILES = main.c initial_error.c philo.h
+FILES = main.c initial_error.c ft_atoi.c philo.h
 
 all: $(NAME)
 
 $(NAME):
-		gcc -pthread $(FILES) -o $(NAME)
+		gcc -pthread -g $(FILES) -o $(NAME)
 
 clean:
 	rm -rf $(NAME)
