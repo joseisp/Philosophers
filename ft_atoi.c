@@ -6,11 +6,11 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 23:52:53 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/13 15:53:59 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:22:34 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
 static int	ft_check_overflow(int num, int c_minus)
 {
