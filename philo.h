@@ -16,10 +16,11 @@ typedef struct s_main
 
 typedef struct	s_philo
 {
-	int				philosopher;
+	int				phil;
 	int				quantity_meal;
 	int				time_to_eat;
-	t_main			main;
+	pthread_mutex_t	*fork;
+	t_main			*main;
 	struct s_philo	*next;
 
 }t_philo;
@@ -32,3 +33,12 @@ int	check_the_argv(char **argv);
 // utils
 
 int	ft_atoi(const char	*str);
+
+// init and insert
+
+void	init_vars(char **argv, t_main *life_philo);
+void	init_philos(t_philo **the_philos, t_main *life_philo);
+
+//free
+
+void	free_philos(t_philo **the_philos);

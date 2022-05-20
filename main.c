@@ -6,40 +6,41 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/15 05:50:44 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:33:41 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_vars(char **argv, t_main *life_philo) // filo, time to die, time to eat, time to sleep, number of meals
+void*	routine(void *arg)
 {
-	life_philo->philo_n = ft_atoi(argv[1]);
-	life_philo->die_n = ft_atoi(argv[2]);
-	life_philo->eat_n = ft_atoi(argv[3]);
-	life_philo->sleep_n = ft_atoi(argv[4]);
-	if (argv[5])
-		life_philo->meals_n = ft_atoi(argv[5]);
+	t_philo *t_philos;
+
+	t_philos = (t_philo *)arg;
+	if (t_philos)
+	{
+		if (t_philos->fork)
+		{
+			pthread_mutex_lock(t_philos->fork);
+			printf("oi\n");
+			pthread_mutex_unlock(t_philos->fork);
+		}
+	}
 }
 
-void	init_philos(t_philo *the_philos, t_main *life_philo)
+void	start_philo(t_philo *the_philos, t_main	*life_philo)
 {
+	pthread_t post_socratic[life_philo->philo_n];
 	int i;
-	t_philo *aux_head;
-	t_philo *aux;
 
 	i = 0;
-	aux_head = the_philos;
+	printf("Deu boa?%d\n", life_philo->philo_n);
 	while(i < life_philo->philo_n)
 	{
-		aux = malloc(sizeof(t_philo));
-		aux->philosopher = i + 1;
-		aux->next = NULL;
-		the_philos->next = aux;
-		the_philos = the_philos->next;
+		pthread_create(&post_socratic[i], NULL, &routine, the_philos);
+		//usleep(1000);
 		i++;
 	}
-	the_philos = aux_head;
 }
 
 int main(int argc, char **argv)
@@ -50,9 +51,17 @@ int main(int argc, char **argv)
 	the_philos->next = NULL;
 
 	if (check_the_argc(argc) != 1)
+	{
+		free_philos(&the_philos);
 		return 0;
+	}
 	if (check_the_argv(argv) != 1)
+	{
+		free_philos(&the_philos);
 		return 0;
+	}
 	init_vars(argv, &life_philo);
-	init_philos(the_philos, &life_philo);
+	init_philos(&the_philos, &life_philo);
+	start_philo(the_philos, &life_philo);
+	free_philos(&the_philos);
 }
