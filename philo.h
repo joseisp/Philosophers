@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 typedef struct s_main
 {
@@ -11,7 +12,6 @@ typedef struct s_main
 	int	die_n;
 	int	eat_n;
 	int	meals_n;
-
 }t_main;
 
 typedef struct	s_philo
@@ -19,10 +19,12 @@ typedef struct	s_philo
 	int				phil;
 	int				quantity_meal;
 	int				time_to_eat;
+	int				eat;
 	pthread_mutex_t	*fork;
 	t_main			*main;
 	struct s_philo	*next;
-
+	int				i;
+	int				sum_routine;
 }t_philo;
 
 //error functions
@@ -32,7 +34,8 @@ int	check_the_argv(char **argv);
 
 // utils
 
-int	ft_atoi(const char	*str);
+int				ft_atoi(const char	*str);
+unsigned long	time_from_start_in_ms(void);
 
 // init and insert
 
