@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 01:54:43 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/19 22:31:42 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/23 11:36:37 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,24 @@ void	init_philos(t_philo **the_philos, t_main *life_philo)
 	t_philo *aux;
 
 	i = 0;
-	//aux_head = (*the_philos);
+	aux_head = (*the_philos);
 	while(i < life_philo->philo_n)
 	{
 		aux = (t_philo* )malloc(sizeof(t_philo));
 		aux->phil = i + 1;
+		aux->time_to_eat = 0;
+		aux->eat = 0;
 		aux->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(aux->fork, NULL);
 		aux->next = NULL;
 		(*the_philos)->next = aux;
 		(*the_philos) = (*the_philos)->next;
+		(*the_philos)->main = life_philo;
 		if (i == 0)
 			aux_head = (*the_philos);
 		i++;
 	}
+	(*the_philos)->next = aux_head;
 	(*the_philos) = aux_head;
+	//(*the_philos) = aux_head;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/15 23:52:53 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/14 18:22:34 by jinacio-         ###   ########.fr       */
+/*   Created: 2022/05/22 15:06:01 by jinacio-          #+#    #+#             */
+/*   Updated: 2022/05/22 15:07:05 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,15 @@ int	ft_atoi(const char	*str)
 	if (c_minus)
 		return (num *= -1);
 	return (num);
+}
+
+unsigned long	time_from_start_in_ms(void)
+{
+	struct timeval			time;
+	static unsigned long	init_time = 0;
+
+	gettimeofday(&time, NULL);
+	if (init_time == 0)
+		init_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000) - init_time);
 }

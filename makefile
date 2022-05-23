@@ -1,7 +1,8 @@
 NAME = philo
 
-FILES += main.c initial_error.c ft_atoi.c philo.h declaration_init.c
-FILES += free_philos.c
+FILES += main.c initial_error.c philo.h declaration_init.c
+FILES += free_philos.c utils.c
+
 all: $(NAME)
 
 $(NAME):
