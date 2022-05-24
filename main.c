@@ -6,22 +6,24 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/24 02:08:51 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:20:08 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void checking(t_philo *the_philos);
+
 void	eating(t_philo *t_philos)
 {
-	t_philos->time_to_eat = time_from_start_in_ms();
 	pthread_mutex_lock(t_philos->fork);
 	pthread_mutex_lock(t_philos->next->fork);
-	printf("[%ld] %d has taken a fork\n", time_from_start_in_ms(), t_philos->phil);
-	printf("[%ld] %d has taken a fork\n", time_from_start_in_ms(), t_philos->phil);
-	printf("[%ld] %d is eating\n", time_from_start_in_ms(), t_philos->phil);
-	t_philos->quantity_meal++;
+	printf("(%ld) %d has taken a fork\n", time_from_start_in_ms(), t_philos->phil);
+	printf("(%ld) %d has taken a fork\n", time_from_start_in_ms(), t_philos->phil);
+	printf("(%ld) %d --is eating--\n", time_from_start_in_ms(), t_philos->phil);
+	t_philos->time_to_eat = time_from_start_in_ms();
 	usleep(t_philos->main->eat_n * 1000);
+	t_philos->quantity_meal++;
 	pthread_mutex_unlock(t_philos->fork);
 	pthread_mutex_unlock(t_philos->next->fork);
 }
@@ -36,9 +38,9 @@ void*	routine(void *arg)
 		if (the_philos->phil % 2 == 0)
 			usleep(50);
 		eating(the_philos);
-		printf("[%ld] %d is sleeping\n", time_from_start_in_ms(), the_philos->phil);
+		printf("(%ld) %d is sleeping\n", time_from_start_in_ms(), the_philos->phil);
 		usleep(the_philos->main->sleep_n * 1000);
-		printf("[%ld] %d is thinking\n", time_from_start_in_ms(), the_philos->phil);
+		printf("(%ld) %d is thinking\n", time_from_start_in_ms(), the_philos->phil);
 	}
 }
 
@@ -59,17 +61,22 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 		aux = aux->next;
 		i++;
 	}
+	checking(the_philos);
 }
 
 void checking(t_philo *the_philos)
 {
+	t_philo *aux;
 
+	aux = the_philos;
 	while(1)
 	{
-		if ()
+		if (aux->time_to_eat > (aux->main->die_n * aux->quantity_meal))
 		{
-
+			exit(1);
 		}
+		
+		aux = aux->next;
 	}
 }
 
@@ -93,6 +100,6 @@ int main(int argc, char **argv)
 	init_vars(argv, &life_philo);
 	init_philos(&the_philos, &life_philo);
 	start_philo(the_philos, &life_philo);
-	checking(the_philos);
+	//checking(the_philos);
 	//free_philos(&the_philos);
 }
