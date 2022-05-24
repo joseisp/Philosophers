@@ -19,7 +19,6 @@ typedef struct	s_philo
 	int				phil;
 	int				quantity_meal;
 	int				time_to_eat;
-	int				eat;
 	pthread_mutex_t	*fork;
 	t_main			*main;
 	struct s_philo	*next;

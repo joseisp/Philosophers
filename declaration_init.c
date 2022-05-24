@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 01:54:43 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/23 11:36:37 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/23 23:10:28 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	init_philos(t_philo **the_philos, t_main *life_philo)
 		aux = (t_philo* )malloc(sizeof(t_philo));
 		aux->phil = i + 1;
 		aux->time_to_eat = 0;
-		aux->eat = 0;
 		aux->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		pthread_mutex_init(aux->fork, NULL);
 		aux->next = NULL;
