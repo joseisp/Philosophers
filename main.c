@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/24 15:20:08 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:19:00 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void*	routine(void *arg)
 		if (the_philos->phil % 2 == 0)
 			usleep(50);
 		eating(the_philos);
+		the_philos->main->ate_n++;
 		printf("(%ld) %d is sleeping\n", time_from_start_in_ms(), the_philos->phil);
 		usleep(the_philos->main->sleep_n * 1000);
 		printf("(%ld) %d is thinking\n", time_from_start_in_ms(), the_philos->phil);
@@ -53,6 +54,11 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 	i = 0;
 	aux = the_philos;
 	time_from_start_in_ms();
+	if (the_philos->main->philo_n == 1)
+	{
+		printf("(%ld) %d died\n", time_from_start_in_ms(),the_philos->phil);
+		return ;
+	}
 	while(i < life_philo->philo_n)
 	{
 		if(pthread_create(&post_socratic[i], NULL, &routine, aux))
@@ -64,6 +70,7 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 	checking(the_philos);
 }
 
+//(aux->main->meals_n * aux->phil)
 void checking(t_philo *the_philos)
 {
 	t_philo *aux;
@@ -73,9 +80,16 @@ void checking(t_philo *the_philos)
 	{
 		if (aux->time_to_eat > (aux->main->die_n * aux->quantity_meal))
 		{
+			usleep(150);
+			printf("(%ld) %d died \n", time_from_start_in_ms(),aux->phil);
 			exit(1);
 		}
-		
+		if (aux->main->ate_n == (aux->main->meals_n * aux->main->philo_n))
+		{
+			usleep(150);
+			printf("All philosophers have been fed\n");
+			exit(1);
+		}
 		aux = aux->next;
 	}
 }

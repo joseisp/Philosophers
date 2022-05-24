@@ -12,6 +12,7 @@ typedef struct s_main
 	int	die_n;
 	int	eat_n;
 	int	meals_n;
+	int	ate_n;
 }t_main;
 
 typedef struct	s_philo
