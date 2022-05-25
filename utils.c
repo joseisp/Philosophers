@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 15:06:01 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 01:54:58 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/25 15:46:46 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	ft_atoi(const char	*str)
 	return (num);
 }
 
-unsigned long	timing(void)
+int	timing(void)
 {
 	struct timeval			time;
-	static unsigned long	init_time = 0;
+	static int				init_time = 0;
 
 	gettimeofday(&time, NULL);
 	if (init_time == 0)
