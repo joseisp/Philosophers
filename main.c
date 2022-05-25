@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 15:54:50 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:20:19 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void*	routine(void *arg)
 	t_philo *the_philos;
 
 	the_philos = (t_philo *)arg;
-	the_philos->main->freedom++;
 	while(1 && the_philos->main->dead == 0)
 	{
 		if (the_philos->phil % 2 == 0)
@@ -67,7 +66,6 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 
 	i = 0;
 	aux = the_philos;
-	timing();
 	if (the_philos->main->philo_n == 1)
 	{
 		printf("(%d) %d died\n", timing(),the_philos->phil);
@@ -103,11 +101,11 @@ void checking(t_philo *the_philos)
 			printf("(%d) %d died \n", timing(),aux->phil);
 			return ;
 		}
-		if (aux->main->ate_n == (aux->main->meals_n * aux->main->philo_n) && \
+		if (aux->main->ate_n >= (aux->main->meals_n * aux->main->philo_n) && \
 		aux->main->meals_n != -1)
 		{
-			usleep(20);
 			aux->main->dead++;
+			the_philos->main->freedom++;
 			printf("All philosophers have been fed\n");
 			return ;
 		}
@@ -121,7 +119,6 @@ int main(int argc, char **argv)
 	t_philo *the_philos;
 	the_philos = malloc(sizeof(t_philo));
 	the_philos->next = NULL;
-
 	if (check_the_argc(argc) != 1)
 	{
 		free(the_philos);
