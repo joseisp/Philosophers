@@ -5,6 +5,11 @@
 #include <unistd.h>
 #include <sys/time.h>
 
+#define EATING 3
+#define FORK 4
+#define SLEEPING 1
+#define THINKING 2
+
 typedef struct s_main
 {
 	int	philo_n;
@@ -14,6 +19,9 @@ typedef struct s_main
 	int	meals_n;
 	int	ate_n;
 	int last_meal;
+	int dead;
+	int no_hungry;
+	int freedom;
 }t_main;
 
 typedef struct	s_philo
@@ -36,7 +44,7 @@ int	check_the_argv(char **argv);
 // utils
 
 int				ft_atoi(const char	*str);
-unsigned long	time_from_start_in_ms(void);
+unsigned long	timing(void);
 
 // init and insert
 

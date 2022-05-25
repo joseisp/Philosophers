@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/24 22:01:08 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/25 01:55:32 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,27 @@
 
 void checking(t_philo *the_philos);
 
-void	check_death(t_philo *the_philos)
+
+void	print_analyzer(t_philo *phils, int selector)
 {
-
-
-
+	if (selector == EATING && phils->main->dead == 0 && phils->main->no_hungry == 0)
+		printf("(%ld) %d -is eating-\n", timing(), phils->phil);
+	else if (selector == FORK && phils->main->dead == 0 && phils->main->no_hungry == 0)
+		printf("(%ld) %d has taken a fork\n", timing(), phils->phil);
+	else if (selector == SLEEPING && phils->main->dead == 0 && phils->main->no_hungry == 0)
+		printf("(%ld) %d is sleeping\n", timing(), phils->phil);
+	else if (selector == THINKING && phils->main->dead == 0 && phils->main->no_hungry == 0)
+		printf("(%ld) %d is thinking\n", timing(), phils->phil);
 }
 
 void	eating(t_philo *t_philos)
 {
 	pthread_mutex_lock(t_philos->fork);
 	pthread_mutex_lock(t_philos->next->fork);
-	printf("(%ld) %d has taken a fork\n", time_from_start_in_ms(), t_philos->phil);
-	printf("(%ld) %d has taken a fork\n", time_from_start_in_ms(), t_philos->phil);
-	printf("(%ld) %d --is eating--\n", time_from_start_in_ms(), t_philos->phil);
-	t_philos->time_to_eat = time_from_start_in_ms();
+	print_analyzer(t_philos, FORK);
+	print_analyzer(t_philos, FORK);
+	print_analyzer(t_philos, EATING);
+	t_philos->time_to_eat = timing();
 	usleep(t_philos->main->eat_n * 1000);
 	t_philos->quantity_meal++;
 	pthread_mutex_unlock(t_philos->fork);
@@ -40,15 +46,15 @@ void*	routine(void *arg)
 	t_philo *the_philos;
 
 	the_philos = (t_philo *)arg;
-	while(1)
+	while(1 && the_philos->main->freedom == 0)
 	{
 		if (the_philos->phil % 2 == 0)
 			usleep(50);
 		eating(the_philos);
 		the_philos->main->ate_n++;
-		printf("(%ld) %d is sleeping\n", time_from_start_in_ms(), the_philos->phil);
+		print_analyzer(the_philos, SLEEPING);
 		usleep(the_philos->main->sleep_n * 1000);
-		printf("(%ld) %d is thinking\n", time_from_start_in_ms(), the_philos->phil);
+		print_analyzer(the_philos, THINKING);
 	}
 }
 
@@ -60,22 +66,27 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 
 	i = 0;
 	aux = the_philos;
-	time_from_start_in_ms();
+	timing();
 	if (the_philos->main->philo_n == 1)
 	{
-		printf("(%ld) %d died\n", time_from_start_in_ms(),the_philos->phil);
+		printf("(%ld) %d died\n", timing(),the_philos->phil);
 		return ;
 	}
 	while(i < life_philo->philo_n)
 	{
 		if(pthread_create(&post_socratic[i], NULL, &routine, aux))
 			return ;
-		pthread_detach(post_socratic[i]);
+		//pthread_detach(post_socratic[i]);
 		aux = aux->next;
 		i++;
-		//usleep(1000);
 	}
+	i = 0;
 	checking(the_philos);
+	while (i < life_philo->philo_n)
+	{
+		pthread_join(post_socratic[i], NULL);
+		i++;
+	}
 }
 
 void checking(t_philo *the_philos)
@@ -85,18 +96,22 @@ void checking(t_philo *the_philos)
 	aux = the_philos;
 	while(1)
 	{
-		if ((time_from_start_in_ms() - aux->time_to_eat) > aux->main->die_n)
+		if ((timing() - aux->time_to_eat) > aux->main->die_n)
 		{
-			usleep(500);
-			printf("(%ld) %d died \n", time_from_start_in_ms(),aux->phil);
-			exit(1);
+			//usleep(500);
+			aux->main->dead++;
+			printf("(%ld) %d died \n", timing(),aux->phil);
+			the_philos->main->freedom  = 1;
+			return ;
 		}
 		if (aux->main->ate_n == (aux->main->meals_n * aux->main->philo_n) && \
 		aux->main->meals_n != -1)
 		{
-			usleep(150);
+			usleep(20);
+			the_philos->main->no_hungry++;
 			printf("All philosophers have been fed\n");
-			exit(1);
+			the_philos->main->freedom = 1;
+			return ;
 		}
 		aux = aux->next;
 	}
@@ -122,6 +137,5 @@ int main(int argc, char **argv)
 	init_vars(argv, &life_philo);
 	init_philos(&the_philos, &life_philo);
 	start_philo(the_philos, &life_philo);
-	//checking(the_philos);
-	//free_philos(&the_philos);
+	free_philos(&the_philos);
 }

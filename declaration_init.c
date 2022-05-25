@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 01:54:43 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/24 21:15:48 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/25 01:49:11 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	init_vars(char **argv, t_main *life_philo) // filo, time to die, time to ea
 	life_philo->eat_n = ft_atoi(argv[3]);
 	life_philo->sleep_n = ft_atoi(argv[4]);
 	life_philo->ate_n = 0;
-	life_philo->last_meal =0;
+	life_philo->last_meal = 0;
+	life_philo->dead = 0;
+	life_philo->freedom = 0;
+	life_philo->no_hungry = 0;
 	if (argv[5])
 		life_philo->meals_n = ft_atoi(argv[5]);
 	else
