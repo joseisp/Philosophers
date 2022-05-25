@@ -13,6 +13,7 @@ typedef struct s_main
 	int	eat_n;
 	int	meals_n;
 	int	ate_n;
+	int last_meal;
 }t_main;
 
 typedef struct	s_philo

@@ -6,13 +6,20 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/24 18:19:00 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/24 22:01:08 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 void checking(t_philo *the_philos);
+
+void	check_death(t_philo *the_philos)
+{
+
+
+
+}
 
 void	eating(t_philo *t_philos)
 {
@@ -66,11 +73,11 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 		pthread_detach(post_socratic[i]);
 		aux = aux->next;
 		i++;
+		//usleep(1000);
 	}
 	checking(the_philos);
 }
 
-//(aux->main->meals_n * aux->phil)
 void checking(t_philo *the_philos)
 {
 	t_philo *aux;
@@ -78,13 +85,14 @@ void checking(t_philo *the_philos)
 	aux = the_philos;
 	while(1)
 	{
-		if (aux->time_to_eat > (aux->main->die_n * aux->quantity_meal))
+		if ((time_from_start_in_ms() - aux->time_to_eat) > aux->main->die_n)
 		{
-			usleep(150);
+			usleep(500);
 			printf("(%ld) %d died \n", time_from_start_in_ms(),aux->phil);
 			exit(1);
 		}
-		if (aux->main->ate_n == (aux->main->meals_n * aux->main->philo_n))
+		if (aux->main->ate_n == (aux->main->meals_n * aux->main->philo_n) && \
+		aux->main->meals_n != -1)
 		{
 			usleep(150);
 			printf("All philosophers have been fed\n");
