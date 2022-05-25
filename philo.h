@@ -18,10 +18,10 @@ typedef struct s_main
 	int	eat_n;
 	int	meals_n;
 	int	ate_n;
-	int last_meal;
-	int dead;
-	int no_hungry;
-	int freedom;
+	int	last_meal;
+	int	dead;
+	int	freedom;
+	int	init_philos;
 }t_main;
 
 typedef struct	s_philo
@@ -44,7 +44,7 @@ int	check_the_argv(char **argv);
 // utils
 
 int				ft_atoi(const char	*str);
-unsigned long	timing(void);
+int				timing(void);
 
 // init and insert
 
@@ -53,4 +53,4 @@ void	init_philos(t_philo **the_philos, t_main *life_philo);
 
 //free
 
-void	free_philos(t_philo **the_philos);
+void	free_philos(t_philo **the_philos, t_main *life_philo);
