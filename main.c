@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 19:20:19 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:23:24 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void checking(t_philo *the_philos)
 			return ;
 		}
 		aux = aux->next;
+		usleep(50);
 	}
 }
 
