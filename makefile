@@ -1,16 +1,45 @@
-NAME = philo
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/25 19:45:11 by jinacio-          #+#    #+#              #
+#    Updated: 2022/05/25 21:15:13 by jinacio-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror
+NAME 	= philo
 
-FILES += main.c initial_error.c philo.h declaration_init.c
-FILES += free_philos.c utils.c
+CC 		= gcc
+CFLAGS 	= -Wall -Wextra -Werror -pthread -g
+
+SRCDIR = src
+OBJDIR = obj
+
+FILES += checking.c declaration_init.c free_philos.c
+FILES += initial_error.c utils.c philo.h
+FILES += main.c routine.c philo.h
+
+SRC = $(addprefix $(SRCDIR)/, $(FILES))
+OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
-$(NAME):
-		gcc -pthread -g $(FLAGS) $(FILES) -o $(NAME)
+$(NAME):	$(OBJDIR) $(OBJ)
+		$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+$(OBJDIR)/%.o:	$(SRCDIR)/%.c
+		$(CC) $(CFLAGS) -c $< -o $@ -I./src
+
+$(OBJDIR):
+		mkdir -p $(OBJDIR)
 
 clean:
-	rm -rf $(NAME)
+		rm -rf $(OBJDIR)
 
-re: clean all
+fclean: clean
+		rm -f $(NAME)
+
+re: fclean all
