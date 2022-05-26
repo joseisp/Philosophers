@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 21:19:30 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/25 21:28:08 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 	while (life_philo->start_philo < life_philo->philo_n)
 	{
 		if (pthread_create(&aux->post_socratic, NULL, &routine, aux))
-			return (0);
+			return ;
 		aux = aux->next;
 		life_philo->start_philo++;
 	}
