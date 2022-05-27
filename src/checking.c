@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:43:00 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/27 11:52:45 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/27 18:11:16 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	checking(t_philo *the_philos)
 		{
 			aux->main->dead++;
 			print_analyzer(aux, DEAD);
+			printf("passou %d\n", aux->phil);
 			return ;
 		}
 		if (aux->main->ate_n >= (aux->main->meals_n * aux->main->philo_n) && \

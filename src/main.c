@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 13:30:42 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 21:28:08 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/27 18:48:27 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	start_philo(t_philo *the_philos, t_main	*life_philo)
 	aux = the_philos;
 	if (the_philos->main->philo_n == 1)
 	{
-		printf("(%d) %d died\n", timing(), the_philos->phil);
+		printf("(%d) %d died\n", the_philos->main->die_n + 1, the_philos->phil);
 		return ;
 	}
 	while (life_philo->start_philo < life_philo->philo_n)

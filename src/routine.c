@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:46:13 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/27 11:55:49 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/27 18:47:23 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_analyzer(t_philo *phils, int selector)
 		printf("(%d) %d is sleeping\n", timing(), phils->phil);
 	else if (selector == THINKING && phils->main->dead == 0)
 		printf("(%d) %d is thinking\n", timing(), phils->phil);
-	else if (selector == DEAD && phils->main->dead == 0)
+	else if (selector == DEAD && phils->main->dead != 0)
 		printf("(%d) %d died \n", timing(), phils->phil);
 	else if (selector == FED && phils->main->dead == 0)
 		printf("All philosophers have been fed\n");
@@ -37,7 +37,7 @@ void	eating(t_philo *t_philos)
 	print_analyzer(t_philos, FORK);
 	print_analyzer(t_philos, FORK);
 	print_analyzer(t_philos, EATING);
-	t_philos->time_to_eat = timing() - 3;
+	t_philos->time_to_eat = timing();
 	usleep(t_philos->main->eat_n * 1000);
 	pthread_mutex_unlock(t_philos->fork);
 	pthread_mutex_unlock(t_philos->next->fork);
