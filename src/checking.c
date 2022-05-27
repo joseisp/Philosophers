@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:43:00 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 21:03:59 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/27 11:52:45 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	checking(t_philo *the_philos)
 		if ((timing() - aux->time_to_eat) > aux->main->die_n)
 		{
 			aux->main->dead++;
-			printf("(%d) %d died \n", timing(), aux->phil);
+			print_analyzer(aux, DEAD);
 			return ;
 		}
 		if (aux->main->ate_n >= (aux->main->meals_n * aux->main->philo_n) && \

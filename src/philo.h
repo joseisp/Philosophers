@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:44:35 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 21:11:06 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/27 11:55:38 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define FORK 4
 # define SLEEPING 1
 # define THINKING 2
+# define DEAD 5
+# define FED 6
 
 typedef struct s_main
 {
@@ -37,6 +39,7 @@ typedef struct s_main
 	int	freedom;
 	int	init_philos;
 	int	start_philo;
+	pthread_mutex_t	*prints;
 }t_main;
 
 typedef struct s_philo
