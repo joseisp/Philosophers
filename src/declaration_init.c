@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 01:54:43 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 21:17:16 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/27 11:56:40 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,9 @@ void	init_vars(char **argv, t_main *life_philo)
 		life_philo->meals_n = ft_atoi(argv[5]);
 	else
 		life_philo->meals_n = -1;
+	life_philo->prints = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(life_philo->prints, NULL);
 }
-
-// void	init_philos_aux(t_philo **the_philos, t_philo *aux)
-// {
-
-// }
 
 void	init_philos(t_philo **the_philos, t_main *life_philo)
 {

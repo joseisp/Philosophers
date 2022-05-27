@@ -6,7 +6,7 @@
 /*   By: jinacio- < jinacio-@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:46:13 by jinacio-          #+#    #+#             */
-/*   Updated: 2022/05/25 21:20:25 by jinacio-         ###   ########.fr       */
+/*   Updated: 2022/05/27 11:55:49 by jinacio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	print_analyzer(t_philo *phils, int selector)
 {
+	pthread_mutex_lock(phils->main->prints);
 	if (selector == EATING && phils->main->dead == 0)
 		printf("(%d) %d is eating\n", timing(), phils->phil);
 	else if (selector == FORK && phils->main->dead == 0)
@@ -22,6 +23,11 @@ void	print_analyzer(t_philo *phils, int selector)
 		printf("(%d) %d is sleeping\n", timing(), phils->phil);
 	else if (selector == THINKING && phils->main->dead == 0)
 		printf("(%d) %d is thinking\n", timing(), phils->phil);
+	else if (selector == DEAD && phils->main->dead == 0)
+		printf("(%d) %d died \n", timing(), phils->phil);
+	else if (selector == FED && phils->main->dead == 0)
+		printf("All philosophers have been fed\n");
+	pthread_mutex_unlock(phils->main->prints);
 }
 
 void	eating(t_philo *t_philos)
